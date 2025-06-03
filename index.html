@@ -21,7 +21,6 @@
           layout: "BaseLayout",
           docExpansion: "none",
           deepLinking: true,
-          // 👇 Aquí defines el esquema de seguridad global
           requestInterceptor: (req) => {
             const token = localStorage.getItem("jwtToken");
             if (token) {
@@ -29,7 +28,6 @@
             }
             return req;
           },
-          // 👇 Esto habilita el botón "Authorize" con el esquema JWT
           oauth2RedirectUrl: window.location.origin + "/oauth2-redirect.html",
           validatorUrl: null,
         });
