@@ -17,6 +17,21 @@
         SwaggerUIBundle({
           url: "https://api-gestion-bibliotecas.vercel.app/api-docs.json",
           dom_id: "#swagger-ui",
+          presets: [SwaggerUIBundle.presets.apis],
+          layout: "BaseLayout",
+          docExpansion: "none",
+          deepLinking: true,
+          // 👇 Aquí defines el esquema de seguridad global
+          requestInterceptor: (req) => {
+            const token = localStorage.getItem("jwtToken");
+            if (token) {
+              req.headers.Authorization = `Bearer ${token}`;
+            }
+            return req;
+          },
+          // 👇 Esto habilita el botón "Authorize" con el esquema JWT
+          oauth2RedirectUrl: window.location.origin + "/oauth2-redirect.html",
+          validatorUrl: null,
         });
       };
     </script>
